@@ -1,37 +1,35 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+import {Stack} from "expo-router";
+import Login from "@/app/login";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {NavigationContainer} from "@react-navigation/native";
+import Register from "@/app/register";
+import Home from "@/app/home";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
-  );
+    const Stack = createNativeStackNavigator()
+    return (
+        <Stack.Navigator initialRouteName="register">
+            <Stack.Screen name={"login"} component={Login} options={{
+                title: "Login",
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                    fontWeight: "bold",
+                }
+            }}></Stack.Screen>
+            <Stack.Screen name={"register"} component={Register} options={{
+                title: "Create an account",
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                    fontWeight: "bold",
+                }
+            }}></Stack.Screen>
+            <Stack.Screen name={"home"} component={Home} options={{
+                title: "Tasks List",
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                    fontWeight: "bold",
+                }
+            }}></Stack.Screen>
+        </Stack.Navigator>
+    );
 }
