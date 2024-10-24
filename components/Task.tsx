@@ -22,7 +22,16 @@ const Task: React.FC<TaskProps> = ({
         <View style={styles.taskContainer}>
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.description} numberOfLines={2}>{description}</Text>
-            <Text style={styles.date}>Created at: {date}</Text>
+            <Text style={styles.date}>Created at: {new Date(date).toLocaleString('en-CA', {
+                timeZone: 'America/New_York',
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            })}</Text>
             <View style={styles.taskActions}>
                 <Text>{isDone ? 'Completed' : 'Pending'}</Text>
 
