@@ -42,10 +42,22 @@ export default class Home extends Component<{}, State> {
     }
 
     async toggleTaskDone(taskId: string, isDone: boolean) {
-        const userId = this.state.currentUser!.userId
-        updateTask({userId, taskId, isDone}).then(_ => {
-            this.loadTasks(userId)
-        })
+        Alert.alert(`Mark as completed`,
+            'Do you want to complete this task?',
+            [
+                {
+                    text: 'Yes', onPress: () => {
+                        const userId = this.state.currentUser!.userId
+                        updateTask({userId, taskId, isDone}).then(async _ => {
+                            await this.loadTasks(userId)
+                        }).catch(error => {
+                            Alert.alert('Something went wrong', `${error}!`);
+                        })
+                    }
+                },
+                {text: 'No', style: 'cancel'},
+            ],
+        )
 
     }
 
