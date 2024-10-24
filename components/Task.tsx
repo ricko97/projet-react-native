@@ -7,12 +7,13 @@ import {truncateText} from "@/services/utils";
 
 interface TaskProps extends TaskUser {
     toggleTaskDone?: () => void;
+    deleteTask?: (taskId: string) => void;
 }
 
 const Task: React.FC<TaskProps> = ({
                                        taskId, title, description,
                                        date, isDone, isOwner, firstName, lastName,
-                                       toggleTaskDone
+                                       toggleTaskDone, deleteTask
                                    }) => {
 
 
@@ -33,8 +34,9 @@ const Task: React.FC<TaskProps> = ({
 
                         <Pressable><MaterialIcons style={{cursor: "pointer"}} name={"edit-note"} color={"#455A64"}
                                                   size={28}/></Pressable>
-                        <Pressable><MaterialIcons style={{cursor: "pointer"}} name={"delete"} color={"#D32F2F"}
-                                                  size={24}/></Pressable>
+                        <Pressable onPress={() => (deleteTask!)(taskId)}><MaterialIcons
+                            style={{cursor: "pointer"}} name={"delete"} color={"#D32F2F"}
+                            size={24}/></Pressable>
                     </View> : ''}
                 </View> : <View style={styles.taskButtons}><Badge backgroundColor={"#455A64"}
                                                                   value={`${firstName} ${lastName}`}/></View>}

@@ -71,3 +71,12 @@ export interface AddTaskResponse {
     taskId: string;
     date: string;
 }
+
+export interface DeleteTaskRequest {
+    userId: string;
+    taskId: string;
+}
+
+export interface DeleteTaskResponse {
+    message: string;
+}

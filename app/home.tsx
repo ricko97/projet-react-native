@@ -2,7 +2,7 @@ import {Alert, FlatList, SafeAreaView, StyleSheet, Text, View} from "react-nativ
 import {getCurrentUser, logoutUser} from "@/services/user";
 import React, {Component} from "react";
 import {TaskUser, User} from "@/services/models";
-import {getTasks, updateTask} from "@/services/api";
+import {getTasks, updateTask, deleteTask} from "@/services/api";
 import Task from "@/components/Task";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import IconButton from "@/components/IconButton";
@@ -49,6 +49,25 @@ export default class Home extends Component<{}, State> {
 
     }
 
+    deleteTask(taskId: string) {
+        Alert.alert(`Delete this task`,
+            'Are you sure you want to proceed?',
+            [
+                {text: 'No', style: 'cancel'},
+                {
+                    text: 'Yes', onPress: () => {
+                        const userId = this.state.currentUser!.userId
+                        deleteTask({userId, taskId}).then(async _ => {
+                            Alert.alert('Success', `Task deleted successfully!`);
+                            await this.loadTasks(userId)
+                        }).catch(error => {
+                            Alert.alert('Something went wrong', `${error}!`);
+                        })
+                    }
+                },
+            ],
+        )
+    }
 
     async logout() {
         await logoutUser()
@@ -85,7 +104,8 @@ export default class Home extends Component<{}, State> {
                                                                                isOwner={item.isOwner}
                                                                                firstName={item.firstName}
                                                                                lastName={item.lastName}
-                                                                               toggleTaskDone={() => this.toggleTaskDone(item.taskId, !item.isDone)}/>}
+                                                                               toggleTaskDone={() => this.toggleTaskDone(item.taskId, !item.isDone)}
+                                                                               deleteTask={() => this.deleteTask(item.taskId)}/>}
                                   keyExtractor={(item) => item.taskId}
                         /></View>
                 </SafeAreaView>

@@ -1,5 +1,5 @@
 import {
-    AddTaskRequest, AddTaskResponse,
+    AddTaskRequest, AddTaskResponse, DeleteTaskRequest, DeleteTaskResponse,
     GetTasks,
     LoginRequest,
     LoginResponse,
@@ -94,6 +94,25 @@ export const addTask = async ({
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({userId, title, description})
+        })
+
+        return await res.json();
+    } catch (error) {
+        throw new Error(`${error}`);
+    }
+};
+
+export const deleteTask = async ({
+                                     userId,
+                                     taskId,
+                                 }: DeleteTaskRequest): Promise<DeleteTaskResponse> => {
+    try {
+        const res = await fetch(`${API_URL}/api/tasks-management/remove-task`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({userId, taskId})
         })
 
         return await res.json();
