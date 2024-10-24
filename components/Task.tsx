@@ -33,7 +33,15 @@ const Task: React.FC<TaskProps> = ({
                 hour12: false
             })}</Text>
             <View style={styles.taskActions}>
-                <Text>{isDone ? 'Completed' : 'Pending'}</Text>
+                <Text>{isDone ? <Badge backgroundColor={"transparent"}
+                                       textColor={"#388E3C"}
+                                       iconColor={"#388E3C"}
+                                       value={"Completed"}
+                                       iconName={"done-all"}/> : <Badge backgroundColor={"transparent"}
+                                                                        textColor={"#FFA000"}
+                                                                        iconColor={"#FFA000"}
+                                                                        value={"Pending"}
+                                                                        iconName={"schedule"}/>}</Text>
 
                 {isOwner ? <View style={styles.taskButtons}>
                     <Switch
@@ -51,7 +59,8 @@ const Task: React.FC<TaskProps> = ({
                             size={24}/></Pressable>
                     </View> : ''}
                 </View> : <View style={styles.taskButtons}><Badge backgroundColor={"#455A64"}
-                                                                  value={`${firstName} ${lastName}`}/></View>}
+                                                                  value={`${firstName} ${lastName}`}
+                                                                  iconName={"account-circle"}/></View>}
 
 
             </View>
