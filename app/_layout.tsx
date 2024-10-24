@@ -1,16 +1,12 @@
-import {Stack} from "expo-router";
 import Login from "@/app/login";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import Register from "@/app/register";
 import Home from "@/app/home";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {MaterialIcons} from "@expo/vector-icons";
 import Others from "@/app/others";
 import Archived from "@/app/archived";
 import {StyleSheet} from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {color} from "ansi-fragments";
-import {Asset} from "expo-asset";
 import AddTask from "@/app/addTask";
 import UpdateTask from "@/app/updateTask";
 
@@ -21,7 +17,7 @@ export default function RootLayout() {
     const HomeTabs = () => {
         return (
             <Tab.Navigator initialRouteName="Home" screenOptions={({route}) => ({
-                tabBarIcon: ({focused, color, size}) => {
+                tabBarIcon: ({focused, size}) => {
                     let iconName: string = "home"
                     let iconColor: string = focused ? "#03A9F4" : "#fff"
 

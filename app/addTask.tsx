@@ -4,7 +4,6 @@ import {getCurrentUser} from "@/services/user";
 import {User} from "@/services/models";
 import {addTask} from "@/services/api";
 import {router} from "expo-router";
-import {useRoute} from "@react-navigation/core";
 
 interface State {
     title: string;

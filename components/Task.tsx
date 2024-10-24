@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
-import {View, Text, Switch, StyleSheet, TouchableOpacity, Pressable} from 'react-native';
+import React from 'react';
+import {View, Text, Switch, StyleSheet, Pressable} from 'react-native';
 import {TaskUser} from "@/services/models";
 import {MaterialIcons} from "@expo/vector-icons";
 import Badge from "@/components/Badge";
-import {truncateText} from "@/services/utils";
 
 interface TaskProps extends TaskUser {
     toggleTaskDone?: () => void;

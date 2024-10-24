@@ -7,7 +7,6 @@ import Task from "@/components/Task";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import IconButton from "@/components/IconButton";
 import {router} from "expo-router";
-import {useNavigation} from "@react-navigation/native";
 
 
 interface State {
