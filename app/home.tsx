@@ -7,6 +7,7 @@ import Task from "@/components/Task";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import IconButton from "@/components/IconButton";
 import {router} from "expo-router";
+import {useNavigation} from "@react-navigation/native";
 
 
 interface State {
@@ -81,6 +82,10 @@ export default class Home extends Component<{}, State> {
         )
     }
 
+    updateTask(taskId: string) {
+        router.navigate({pathname: "/updateTask", params: {taskId: taskId}})
+    }
+
     async logout() {
         await logoutUser()
         Alert.alert('Success', `You have been logged out!`);
@@ -117,7 +122,8 @@ export default class Home extends Component<{}, State> {
                                                                                firstName={item.firstName}
                                                                                lastName={item.lastName}
                                                                                toggleTaskDone={() => this.toggleTaskDone(item.taskId, !item.isDone)}
-                                                                               deleteTask={() => this.deleteTask(item.taskId)}/>}
+                                                                               deleteTask={() => this.deleteTask(item.taskId)}
+                                                                               updateTask={() => this.updateTask(item.taskId)}/>}
                                   keyExtractor={(item) => item.taskId}
                         /></View>
                 </SafeAreaView>

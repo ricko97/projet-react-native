@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {color} from "ansi-fragments";
 import {Asset} from "expo-asset";
 import AddTask from "@/app/addTask";
+import UpdateTask from "@/app/updateTask";
 
 export default function RootLayout() {
     const Stack = createNativeStackNavigator()
@@ -81,6 +82,11 @@ export default function RootLayout() {
             <Stack.Screen name={"addTask"} component={AddTask} options={{
                 headerTitleAlign: "center",
                 headerTitle: "Add new task"
+            }}>
+            </Stack.Screen>
+            <Stack.Screen name={"updateTask"} component={UpdateTask} options={{
+                headerTitleAlign: "center",
+                headerTitle: "Update a task"
             }}>
             </Stack.Screen>
         </Stack.Navigator>

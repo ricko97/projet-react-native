@@ -4,6 +4,7 @@ import {getCurrentUser} from "@/services/user";
 import {User} from "@/services/models";
 import {addTask} from "@/services/api";
 import {router} from "expo-router";
+import {useRoute} from "@react-navigation/core";
 
 interface State {
     title: string;
@@ -14,7 +15,6 @@ interface State {
 class AddTask extends Component<{}, State> {
     constructor(props: {}) {
         super(props);
-
         this.state = {
             title: '',
             description: '',
@@ -26,7 +26,6 @@ class AddTask extends Component<{}, State> {
         const data = await getCurrentUser();
         const user = JSON.parse(data!) as User
         this.setState({currentUser: user})
-
     }
 
     handleAddTask = () => {
