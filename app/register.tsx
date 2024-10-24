@@ -1,8 +1,9 @@
 import {Text, View, StyleSheet, Alert, TextInput, Button} from "react-native";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link, router} from "expo-router";
 import {signupAction} from "@/services/api";
 import PasswordInput from "@/components/PasswordInput";
+import {userConnected} from "@/services/utils";
 
 export default function Register() {
 
@@ -10,6 +11,11 @@ export default function Register() {
     const [lastName, setLastName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+
+    useEffect(() => {
+        //Redirect user to home page if already connected
+        userConnected()
+    }, []);
 
     const handleRegister = async () => {
         if (!firstName || !lastName || !email || !password) {

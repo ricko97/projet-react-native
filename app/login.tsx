@@ -1,13 +1,19 @@
 import {Text, View, StyleSheet, Alert, TextInput, Button} from "react-native";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link, router} from "expo-router";
 import {loginAction} from "@/services/api";
 import {setCurrentUser} from "@/services/user";
 import PasswordInput from "@/components/PasswordInput";
+import {userConnected} from "@/services/utils";
 
 export default function Login() {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+
+    useEffect(() => {
+        //Redirect user to home page if already connected
+        userConnected()
+    }, []);
 
     // Function to handle login
     const handleLogin = () => {
