@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Switch, StyleSheet, Pressable} from 'react-native';
+import {View, Text, Switch, StyleSheet, Pressable, TouchableOpacity} from 'react-native';
 import {TaskUser} from "@/services/models";
 import {MaterialIcons} from "@expo/vector-icons";
 import Badge from "@/components/Badge";
@@ -49,13 +49,14 @@ const Task: React.FC<TaskProps> = ({
                     />
                     {!isDone ? <View style={styles.icons}>
 
-                        <Pressable onPress={() => (updateTask!)(taskId)}><MaterialIcons style={{cursor: "pointer"}}
-                                                                                        name={"edit-note"}
-                                                                                        color={"#455A64"}
-                                                                                        size={28}/></Pressable>
-                        <Pressable onPress={() => (deleteTask!)(taskId)}><MaterialIcons
+                        <TouchableOpacity onPress={() => (updateTask!)(taskId)}><MaterialIcons
+                            style={{cursor: "pointer"}}
+                            name={"edit-note"}
+                            color={"#455A64"}
+                            size={28}/></TouchableOpacity>
+                        <TouchableOpacity onPress={() => (deleteTask!)(taskId)}><MaterialIcons
                             style={{cursor: "pointer"}} name={"delete"} color={"#D32F2F"}
-                            size={24}/></Pressable>
+                            size={24}/></TouchableOpacity>
                     </View> : ''}
                 </View> : <View style={styles.taskButtons}><Badge backgroundColor={"#455A64"}
                                                                   value={`${firstName} ${lastName}`}
