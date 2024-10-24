@@ -13,7 +13,7 @@ interface State {
     tasks: TaskUser[]
 }
 
-export default class Home extends Component<{}, State> {
+export default class Archived extends Component<{}, State> {
 
     constructor(props: {}) {
         super(props);
@@ -36,17 +36,10 @@ export default class Home extends Component<{}, State> {
 
 
     render() {
-        const myTasks = this.state.tasks.filter((task) => task.isOwner && !task.isDone)
+        const myTasks = this.state.tasks.filter((task) => task.isDone).sort((a, b) => Number(a) - Number(b))
         return (
             <SafeAreaProvider>
                 <SafeAreaView style={styles.container}>
-                    <View style={styles.header}>
-                        <Text
-                            style={styles.textHeader}>{`Welcome, ${this.state.currentUser?.firstName}`}</Text>
-                        <IconButton iconName={"logout"} buttonText={"Logout"} buttonStyle={{backgroundColor: "#616161"}}
-                                    onPress={() => {
-                                    }}/>
-                    </View>
                     <View style={styles.listGroup}>
                         <View style={styles.newTask}>
                             <IconButton iconName={"add"} buttonText={"New task"} onPress={() => {
@@ -77,17 +70,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         gap: 30
     },
-    header: {
-        display: 'flex',
-        flexDirection: "row",
-        padding: 15,
-        justifyContent: "space-between",
-        alignItems: "center"
-    },
-    textHeader: {
-        fontSize: 25,
-        fontWeight: "bold"
-    },
     newTask: {
         width: '35%',
         paddingHorizontal: 5,
@@ -97,6 +79,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         gap: 10,
+        marginTop: 30,
         paddingBottom: 40,
     }
 })

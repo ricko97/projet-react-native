@@ -30,3 +30,19 @@ export interface User {
     lastName: string;
     email: string;
 }
+
+export interface TaskUser {
+    taskId: string;
+    title: string;
+    description: string;
+    date: string;
+    isDone: boolean;
+    isOwner: boolean
+    firstName?: string,
+    lastName?: string,
+}
+
+export interface AllTasks {
+    userId: string,
+    tasks: TaskUser[]
+}

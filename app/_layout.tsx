@@ -6,6 +6,8 @@ import Register from "@/app/register";
 import Home from "@/app/home";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {MaterialIcons} from "@expo/vector-icons";
+import Others from "@/app/others";
+import Archived from "@/app/archived";
 
 export default function RootLayout() {
     const Stack = createNativeStackNavigator()
@@ -22,7 +24,7 @@ export default function RootLayout() {
                     headerTitleAlign: "center",
                     headerTitle: "My Tasks"
                 }}/>
-                <Tab.Screen name="others" component={Home} options={{
+                <Tab.Screen name="others" component={Others} options={{
                     tabBarIcon: () => {
                         return <MaterialIcons name="groups" size={20} color="#000"/>
                     },
@@ -30,7 +32,7 @@ export default function RootLayout() {
                     headerTitleAlign: "center",
                     headerTitle: "Other Tasks"
                 }}/>
-                <Tab.Screen name="archived" component={Home} options={{
+                <Tab.Screen name="archived" component={Archived} options={{
                     tabBarIcon: () => {
                         return <MaterialIcons name="task-alt" size={20} color="#000"/>
                     },
