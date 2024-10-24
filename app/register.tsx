@@ -2,6 +2,7 @@ import {Text, View, StyleSheet, Alert, TextInput, Button} from "react-native";
 import {useState} from "react";
 import {Link, router} from "expo-router";
 import {signupAction} from "@/services/api";
+import PasswordInput from "@/components/PasswordInput";
 
 export default function Register() {
 
@@ -57,14 +58,7 @@ export default function Register() {
                 keyboardType="email-address"
                 autoCapitalize="none"
             />
-
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-            />
+            <PasswordInput value={password} onChangeText={setPassword} containerStyle={styles.input}/>
 
             <Button title="Register" onPress={handleRegister}/>
 

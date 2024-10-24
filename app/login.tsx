@@ -3,6 +3,7 @@ import {useState} from "react";
 import {Link, router} from "expo-router";
 import {loginAction} from "@/services/api";
 import {setCurrentUser} from "@/services/user";
+import PasswordInput from "@/components/PasswordInput";
 
 export default function Login() {
     const [email, setEmail] = useState<string>('');
@@ -37,13 +38,7 @@ export default function Login() {
                 autoCapitalize="none"
             />
 
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-            />
+            <PasswordInput value={password} onChangeText={setPassword} containerStyle={styles.input}/>
 
             <Button title="Login" onPress={handleLogin}/>
 
