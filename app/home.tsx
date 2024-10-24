@@ -1,24 +1,37 @@
-import {Text} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import {getCurrentUser} from "@/services/user";
-import React from "react";
+import React, {Component} from "react";
+import {User} from "@/services/models";
 
 
-export default class Home extends React.Component {
+interface State {
+    currentUser: User | null;
+}
 
-    constructor(props) {
+export default class Home extends Component<{}, State> {
+
+    constructor(props: {}) {
         super(props);
         this.state = {
-            user: ""
+            currentUser: null
         }
     }
 
+
     async componentDidMount() {
-        this.setState({user: getCurrentUser})
+        const user_data = await getCurrentUser();
+        this.setState({currentUser: JSON.parse(user_data!)})
     }
 
 
     render() {
-        return <Text>Welcome {this.state.user}</Text>
+        return (
+            <View>
+
+            </View>
+        )
     }
 
 }
+
+const styles = StyleSheet.create({})
