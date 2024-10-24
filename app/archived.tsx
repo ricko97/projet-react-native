@@ -6,6 +6,7 @@ import {getTasks, updateTask} from "@/services/api";
 import Task from "@/components/Task";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import IconButton from "@/components/IconButton";
+import {router} from "expo-router";
 
 
 interface State {
@@ -54,8 +55,9 @@ export default class Archived extends Component<{}, State> {
                 <SafeAreaView style={styles.container}>
                     <View style={styles.listGroup}>
                         <View style={styles.newTaskGroup}>
-                            <IconButton iconName={"add"} buttonText={"New task"} onPress={() => {
-                            }}/>
+                            <IconButton iconName={"add"} buttonText={"New task"}
+                                        buttonStyle={{backgroundColor: "#03A9F4"}}
+                                        onPress={() => router.push("/addTask")}/>
                             <IconButton iconName={"refresh"} buttonText={""} buttonStyle={{backgroundColor: "#212121"}}
                                         onPress={() => this.loadTasks(this.state.currentUser!.userId)}/>
                         </View>

@@ -69,8 +69,9 @@ export default class Home extends Component<{}, State> {
                     </View>
                     <View style={styles.listGroup}>
                         <View style={styles.newTaskGroup}>
-                            <IconButton iconName={"add"} buttonText={"New task"} onPress={() => {
-                            }}/>
+                            <IconButton iconName={"add"} buttonText={"New task"}
+                                        buttonStyle={{backgroundColor: "#03A9F4"}}
+                                        onPress={() => router.push("/addTask")}/>
                             <IconButton iconName={"refresh"} buttonText={""} buttonStyle={{backgroundColor: "#212121"}}
                                         onPress={() => this.loadTasks(this.state.currentUser!.userId)}/>
                         </View>

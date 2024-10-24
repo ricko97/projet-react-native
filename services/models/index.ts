@@ -59,3 +59,15 @@ export interface UpdateTaskResponse {
     message: string;
     taskId: string;
 }
+
+export interface AddTaskRequest {
+    userId: string;
+    title: string;
+    description: string;
+}
+
+export interface AddTaskResponse {
+    message: string;
+    taskId: string;
+    date: string;
+}

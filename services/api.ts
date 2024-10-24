@@ -1,4 +1,5 @@
 import {
+    AddTaskRequest, AddTaskResponse,
     GetTasks,
     LoginRequest,
     LoginResponse,
@@ -26,7 +27,7 @@ export const signupAction = async ({
 
         return await res.json();
     } catch (error) {
-        throw new Error(`Error: ${error}`);
+        throw new Error(`${error}`);
     }
 };
 
@@ -45,7 +46,7 @@ export const loginAction = async ({
 
         return await res.json();
     } catch (error) {
-        throw new Error(`Error: ${error}`);
+        throw new Error(`${error}`);
     }
 };
 
@@ -55,7 +56,7 @@ export const getTasks = async (userId: string): Promise<GetTasks> => {
 
         return await res.json();
     } catch (error) {
-        throw new Error(`Error: ${error}`);
+        throw new Error(`${error}`);
     }
 };
 
@@ -77,7 +78,27 @@ export const updateTask = async ({
 
         return await res.json();
     } catch (error) {
-        throw new Error(`Error: ${error}`);
+        throw new Error(`${error}`);
+    }
+};
+
+export const addTask = async ({
+                                  userId,
+                                  title,
+                                  description,
+                              }: AddTaskRequest): Promise<AddTaskResponse> => {
+    try {
+        const res = await fetch(`${API_URL}/api/tasks-management/add-task`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({userId, title, description})
+        })
+
+        return await res.json();
+    } catch (error) {
+        throw new Error(`${error}`);
     }
 };
 
