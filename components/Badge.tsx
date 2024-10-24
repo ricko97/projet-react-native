@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 interface BadgeProps {
     value: string | number;
+    iconActive?: boolean;
     iconName: string;
     iconColor?: string;
     backgroundColor?: string;
@@ -12,6 +13,7 @@ interface BadgeProps {
 
 const Badge: React.FC<BadgeProps> = ({
                                          value,
+                                         iconActive = true,
                                          iconName,
                                          iconColor = 'white',
                                          backgroundColor = 'red',
@@ -19,7 +21,7 @@ const Badge: React.FC<BadgeProps> = ({
                                      }) => {
     return (
         <View style={[styles.badge, {backgroundColor}]}>
-            <Icon name={iconName} size={15} color={iconColor}/>
+            {iconActive ? <Icon name={iconName} size={15} color={iconColor}/> : ''}
             <Text style={[styles.badgeText, {color: textColor}]}>{value}</Text>
         </View>
     );

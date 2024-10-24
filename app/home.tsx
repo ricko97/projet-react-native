@@ -104,12 +104,17 @@ export default class Home extends Component<{}, State> {
                                     onPress={this.logout}/>
                     </View>
                     <View style={styles.listGroup}>
-                        <View style={styles.newTaskGroup}>
-                            <IconButton iconName={"add"} buttonText={"New task"}
-                                        buttonStyle={{backgroundColor: "#03A9F4"}}
-                                        onPress={() => router.push("/addTask")}/>
-                            <IconButton iconName={"refresh"} buttonText={""} buttonStyle={{backgroundColor: "#212121"}}
-                                        onPress={() => this.loadTasks(this.state.currentUser!.userId)}/>
+                        <View style={styles.buttonsGroup}>
+                            <View style={styles.newTaskGroup}>
+                                <IconButton iconName={"add"} buttonText={"New task"}
+                                            buttonStyle={{backgroundColor: "#03A9F4"}}
+                                            onPress={() => router.push("/addTask")}/>
+                                <IconButton iconName={"refresh"} buttonText={""}
+                                            buttonStyle={{backgroundColor: "#212121"}}
+                                            onPress={() => this.loadTasks(this.state.currentUser!.userId)}/>
+                            </View>
+
+                            <Text style={styles.totalItems}>{`Total: ${myTasks.length}`}</Text>
                         </View>
 
 
@@ -150,16 +155,27 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: "bold"
     },
-    newTaskGroup: {
-        display: "flex",
-        flexDirection: "row",
-        gap: 5,
-        paddingHorizontal: 5,
-    },
     listGroup: {
         display: "flex",
         flexDirection: "column",
         gap: 10,
         paddingBottom: 40,
+    },
+    newTaskGroup: {
+        flex: 1,
+        flexDirection: "row",
+        gap: 5,
+    },
+    buttonsGroup: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        gap: 5,
+        paddingHorizontal: 5,
+    },
+    totalItems: {
+        alignSelf: 'flex-end',
+        fontWeight: "bold",
+        marginEnd: 10
     }
 })
