@@ -1,13 +1,15 @@
 import {Stack} from "expo-router";
 import Login from "@/app/login";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {NavigationContainer} from "@react-navigation/native";
 import Register from "@/app/register";
 import Home from "@/app/home";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {MaterialIcons} from "@expo/vector-icons";
 import Others from "@/app/others";
 import Archived from "@/app/archived";
+import {StyleSheet} from "react-native";
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {color} from "ansi-fragments";
 
 export default function RootLayout() {
     const Stack = createNativeStackNavigator()
@@ -15,28 +17,37 @@ export default function RootLayout() {
 
     const HomeTabs = () => {
         return (
-            <Tab.Navigator initialRouteName="Home">
+            <Tab.Navigator initialRouteName="Home" screenOptions={({route}) => ({
+                tabBarIcon: ({focused, color, size}) => {
+                    let iconName: string = "home"
+                    let iconColor: string = focused ? "#03A9F4" : "#fff"
+
+                    if (route.name === "others") {
+                        iconName = "groups"
+                    } else if (route.name === "archived") {
+                        iconName = "task-alt"
+                    }
+
+                    return <Icon name={iconName} size={size} color={iconColor}/>;
+                },
+                tabBarActiveTintColor: '#03A9F4',
+                tabBarStyle: {backgroundColor: "#212121"}
+            })}>
                 <Tab.Screen name="tasks" component={Home} options={{
-                    tabBarIcon: () => {
-                        return <MaterialIcons name="home" size={20} color="#000"/>
-                    },
                     tabBarLabel: "My Tasks",
+                    tabBarLabelStyle: styles.tabBarLabel,
                     headerTitleAlign: "center",
                     headerTitle: "My Tasks"
                 }}/>
                 <Tab.Screen name="others" component={Others} options={{
-                    tabBarIcon: () => {
-                        return <MaterialIcons name="groups" size={20} color="#000"/>
-                    },
                     tabBarLabel: "Others",
+                    tabBarLabelStyle: styles.tabBarLabel,
                     headerTitleAlign: "center",
-                    headerTitle: "Other Tasks"
+                    headerTitle: "Other Tasks",
                 }}/>
                 <Tab.Screen name="archived" component={Archived} options={{
-                    tabBarIcon: () => {
-                        return <MaterialIcons name="task-alt" size={20} color="#000"/>
-                    },
                     tabBarLabel: "Archived",
+                    tabBarLabelStyle: styles.tabBarLabel,
                     headerTitleAlign: "center",
                     headerTitle: "Archived Tasks"
                 }}/>
@@ -68,3 +79,10 @@ export default function RootLayout() {
         </Stack.Navigator>
     );
 }
+
+const styles = StyleSheet.create({
+    tabBarLabel: {
+        fontSize: 12,
+        marginBottom: 5
+    }
+})
