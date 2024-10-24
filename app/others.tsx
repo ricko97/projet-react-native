@@ -35,6 +35,8 @@ export default class Others extends Component<{}, State> {
 
     async loadTasks(userId: string) {
         const res = await getTasks(userId);
+        //Order by tasks by date desc
+        res.tasks.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         this.setState({tasks: res.tasks});
     }
 
