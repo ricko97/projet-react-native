@@ -42,7 +42,20 @@ export interface TaskUser {
     lastName?: string,
 }
 
-export interface AllTasks {
+export interface GetTasks {
     userId: string,
     tasks: TaskUser[]
+}
+
+export interface UpdateTaskRequest {
+    userId: string;
+    taskId: string;
+    title?: string;
+    description?: string;
+    isDone?: boolean;
+}
+
+export interface UpdateTaskResponse {
+    message: string;
+    taskId: string;
 }

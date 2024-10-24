@@ -2,7 +2,7 @@ import {FlatList, SafeAreaView, StyleSheet, Text, View} from "react-native";
 import {getCurrentUser} from "@/services/user";
 import React, {Component} from "react";
 import {TaskUser, User} from "@/services/models";
-import {getTasks} from "@/services/api";
+import {getTasks, updateTask} from "@/services/api";
 import Task from "@/components/Task";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import IconButton from "@/components/IconButton";
@@ -30,20 +30,33 @@ export default class Archived extends Component<{}, State> {
 
         this.setState({currentUser: user})
 
-        const res = await getTasks(user.userId);
-        this.setState({tasks: res.tasks});
+        await this.loadTasks(user.userId)
     }
 
 
+    async loadTasks(userId: string) {
+        const res = await getTasks(userId);
+        this.setState({tasks: res.tasks});
+    }
+
+    async toggleTaskDone(taskId: string, isDone: boolean) {
+        const userId = this.state.currentUser!.userId
+        updateTask({userId, taskId, isDone}).then(_ => {
+            this.loadTasks(userId)
+        })
+    }
+
     render() {
-        const myTasks = this.state.tasks.filter((task) => task.isDone).sort((a, b) => Number(a) - Number(b))
+        const myTasks = this.state.tasks.filter((task) => task.isDone).sort((a, b) => Number(b.isOwner) - Number(a.isOwner))
         return (
             <SafeAreaProvider>
                 <SafeAreaView style={styles.container}>
                     <View style={styles.listGroup}>
-                        <View style={styles.newTask}>
+                        <View style={styles.newTaskGroup}>
                             <IconButton iconName={"add"} buttonText={"New task"} onPress={() => {
                             }}/>
+                            <IconButton iconName={"refresh"} buttonText={""} buttonStyle={{backgroundColor: "#212121"}}
+                                        onPress={() => this.loadTasks(this.state.currentUser!.userId)}/>
                         </View>
 
 
@@ -53,7 +66,8 @@ export default class Archived extends Component<{}, State> {
                                                                                isDone={item.isDone}
                                                                                isOwner={item.isOwner}
                                                                                firstName={item.firstName}
-                                                                               lastName={item.lastName}/>}
+                                                                               lastName={item.lastName}
+                                                                               toggleTaskDone={() => this.toggleTaskDone(item.taskId, !item.isDone)}/>}
                                   keyExtractor={(item) => item.taskId}
                         /></View>
                 </SafeAreaView>
@@ -70,10 +84,11 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         gap: 30
     },
-    newTask: {
-        width: '35%',
+    newTaskGroup: {
+        display: "flex",
+        flexDirection: "row",
+        gap: 5,
         paddingHorizontal: 5,
-        marginBottom: 0,
     },
     listGroup: {
         display: "flex",

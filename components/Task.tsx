@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
-import {View, Text, Switch, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, Switch, StyleSheet, TouchableOpacity, Pressable} from 'react-native';
 import {TaskUser} from "@/services/models";
 import {MaterialIcons} from "@expo/vector-icons";
 import Badge from "@/components/Badge";
 import {truncateText} from "@/services/utils";
 
+interface TaskProps extends TaskUser {
+    toggleTaskDone?: () => void;
+}
 
-const Task: React.FC<TaskUser> = ({
-                                      taskId, title, description,
-                                      date, isDone, isOwner, firstName, lastName
-                                  }) => {
-    const [completed, setCompleted] = useState(isDone);
+const Task: React.FC<TaskProps> = ({
+                                       taskId, title, description,
+                                       date, isDone, isOwner, firstName, lastName,
+                                       toggleTaskDone
+                                   }) => {
 
-    const toggleTaskDone = () => {
-        setCompleted(!completed);
-    };
 
     return (
         <View style={styles.taskContainer}>
@@ -22,16 +22,21 @@ const Task: React.FC<TaskUser> = ({
             <Text style={styles.description} numberOfLines={2}>{description}</Text>
             <Text style={styles.date}>Created at: {date}</Text>
             <View style={styles.taskActions}>
-                <Text>{completed ? 'Completed' : 'Pending'}</Text>
+                <Text>{isDone ? 'Completed' : 'Pending'}</Text>
 
                 {isOwner ? <View style={styles.taskButtons}>
                     <Switch
-                        value={completed}
+                        value={isDone}
                         onValueChange={toggleTaskDone}
                     />
                     <View style={styles.icons}>
-                        <MaterialIcons style={{cursor: "pointer"}} name={"edit-note"} color={"#455A64"} size={28}/>
-                        <MaterialIcons style={{cursor: "pointer"}} name={"delete"} color={"#D32F2F"} size={24}/>
+
+                        {!isDone ?
+                            <Pressable><MaterialIcons style={{cursor: "pointer"}} name={"edit-note"} color={"#455A64"}
+                                                      size={28}/></Pressable> : ''}
+
+                        <Pressable><MaterialIcons style={{cursor: "pointer"}} name={"delete"} color={"#D32F2F"}
+                                                  size={24}/></Pressable>
                     </View>
                 </View> : <View style={styles.taskButtons}><Badge backgroundColor={"#455A64"}
                                                                   value={`${firstName} ${lastName}`}/></View>}

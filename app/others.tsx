@@ -30,7 +30,11 @@ export default class Others extends Component<{}, State> {
 
         this.setState({currentUser: user})
 
-        const res = await getTasks(user.userId);
+        await this.loadTasks(user.userId)
+    }
+
+    async loadTasks(userId: string) {
+        const res = await getTasks(userId);
         this.setState({tasks: res.tasks});
     }
 
@@ -41,9 +45,11 @@ export default class Others extends Component<{}, State> {
             <SafeAreaProvider>
                 <SafeAreaView style={styles.container}>
                     <View style={styles.listGroup}>
-                        <View style={styles.newTask}>
+                        <View style={styles.newTaskGroup}>
                             <IconButton iconName={"add"} buttonText={"New task"} onPress={() => {
                             }}/>
+                            <IconButton iconName={"refresh"} buttonText={""} buttonStyle={{backgroundColor: "#212121"}}
+                                        onPress={() => this.loadTasks(this.state.currentUser!.userId)}/>
                         </View>
 
 
@@ -70,10 +76,11 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         gap: 30
     },
-    newTask: {
-        width: '35%',
+    newTaskGroup: {
+        display: "flex",
+        flexDirection: "row",
+        gap: 5,
         paddingHorizontal: 5,
-        marginBottom: 0,
     },
     listGroup: {
         display: "flex",
