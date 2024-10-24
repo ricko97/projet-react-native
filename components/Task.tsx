@@ -29,15 +29,13 @@ const Task: React.FC<TaskProps> = ({
                         value={isDone}
                         onValueChange={toggleTaskDone}
                     />
-                    <View style={styles.icons}>
+                    {!isDone ? <View style={styles.icons}>
 
-                        {!isDone ?
-                            <Pressable><MaterialIcons style={{cursor: "pointer"}} name={"edit-note"} color={"#455A64"}
-                                                      size={28}/></Pressable> : ''}
-
+                        <Pressable><MaterialIcons style={{cursor: "pointer"}} name={"edit-note"} color={"#455A64"}
+                                                  size={28}/></Pressable>
                         <Pressable><MaterialIcons style={{cursor: "pointer"}} name={"delete"} color={"#D32F2F"}
                                                   size={24}/></Pressable>
-                    </View>
+                    </View> : ''}
                 </View> : <View style={styles.taskButtons}><Badge backgroundColor={"#455A64"}
                                                                   value={`${firstName} ${lastName}`}/></View>}
 

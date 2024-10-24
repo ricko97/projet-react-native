@@ -46,6 +46,7 @@ export default class Home extends Component<{}, State> {
         updateTask({userId, taskId, isDone}).then(_ => {
             this.loadTasks(userId)
         })
+
     }
 
 
